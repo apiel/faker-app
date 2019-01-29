@@ -1,20 +1,5 @@
-// import { loadUrl } from 'render-and-test';
-const rnt = require('render-and-test');
-
-// import fetch from 'node-fetch';
-const fetch = require('node-fetch');
-
-describe('Item test', () => {
-    beforeAll(async () => {
-        const response = await fetch('http://localhost:2000/');
-        const json = await response.json();
-        const dataUrls = json.map((data, index) => ({
-            url: `http://localhost:3000/item/${index}`,
-            data,
-        }));
-        await rnt.loadUrls(dataUrls);
-    });
-    it('should do something in item', () => {
+describe('List test', () => {
+    it('should do something in list', () => {
 
     });
 });
