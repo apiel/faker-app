@@ -4,12 +4,14 @@ const rnt = require('render-and-test');
 // import fetch from 'node-fetch';
 const fetch = require('node-fetch');
 
+jest.setTimeout(300000);
+
 describe('Item test', () => {
     beforeAll(async () => {
         const response = await fetch('http://localhost:2000/');
         const json = await response.json();
         const dataUrls = json.map((data, index) => ({
-            url: `http://localhost:3000/item/${index}`,
+            pathUrl: `/item/${index}`,
             data,
         }));
         await rnt.loadUrls(dataUrls);
