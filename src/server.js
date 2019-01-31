@@ -9,7 +9,8 @@ app.get('/', (req, res) => {
   faker.seed(1);
 
   const data = [];
-  for(let n = 0; n < 100; n++) {
+  const count = 10;
+  for(let n = 0; n < count; n++) {
     data.push({
       name: faker.name.findName(),
       address: faker.address.streetAddress(),

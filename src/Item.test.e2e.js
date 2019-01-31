@@ -1,23 +1,34 @@
 // import { loadUrl } from 'render-and-test';
-const rnt = require('render-and-test');
+// const rnt = require('render-and-test');
 
 // import fetch from 'node-fetch';
 const fetch = require('node-fetch');
 
-jest.setTimeout(300000);
+jest.setTimeout(600000);
 
 describe('Item test', () => {
+    let page;
     beforeAll(async () => {
-        const response = await fetch('http://localhost:2000/');
-        const json = await response.json();
-        const dataUrls = json.map((data, index) => ({
-            pathUrl: `/item/${index}`,
-            data,
-        }));
-        await rnt.loadUrls(dataUrls);
+        if (process.env.RNT_START) {
+            const response = await fetch('http://localhost:2000/');
+            const json = await response.json();
+            const dataUrls = json.map((data, index) => ({
+                file: __filename,
+                url: `http://localhost:3000/item/${index}`,
+                data,
+            }));
+            dataUrls.forEach((dataUrl) => {
+                process.stdout.write(`[rnt] ${JSON.stringify({ dataUrl })}\n`);
+            });
+            throw new Error('Force exit');
+        } else {
+            page = await global.__BROWSER__.newPage();
+            await page.goto('https://google.com');
+        }
     });
-    it('should do something in item', () => {
-
+    it('should do something in item', async () => {
+        const text = await page.evaluate(() => document.body.textContent);
+        expect(text).toContain('google');
     });
 });
 
