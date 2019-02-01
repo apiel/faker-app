@@ -7,8 +7,8 @@ const fetch = require('node-fetch');
 jest.setTimeout(300000);
 
 describe('Item test', () => {
-    beforeAll(async () => {
-        if (!process.env.RNT_PATH_URL) {
+    if (!process.env.RNT_PATH_URL) {
+        beforeAll(async () => {
             const response = await fetch('http://localhost:2000/');
             const json = await response.json();
             const dataUrls = json.map((data, index) => ({
@@ -16,16 +16,12 @@ describe('Item test', () => {
                 data,
             }));
             await rnt.loadUrls(dataUrls);
-        } else {
-            console.log('beforeAll child');
-        }
-    });
-    afterAll(() => {
-        // console.log('jest', jest);
-    });
-    if (!process.env.RNT_PATH_URL) {
+        });
         it('should do something ', () => {});
     } else {
+        beforeAll(async () => {
+            console.log('beforeAll child');
+        });
         it('should fail', () => {
                 expect(1).toBe(2);
         });
