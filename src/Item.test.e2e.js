@@ -17,12 +17,12 @@ describe('Item test', () => {
             }));
             await rnt.loadUrls(dataUrls);
         });
-    }, () => {
+    }, ({ pathUrl, data }) => {
         beforeAll(async () => {
             console.log('beforeAll child');
         });
         it('should fail', () => {
-                expect(1).toBe(2);
+            expect(1).toBe(2);
         });
     });
 });
