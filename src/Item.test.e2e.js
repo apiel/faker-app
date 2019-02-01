@@ -17,7 +17,6 @@ describe('Item test', () => {
             }));
             await rnt.loadUrls(dataUrls);
         });
-        it('should do something ', () => {});
     }, () => {
         beforeAll(async () => {
             console.log('beforeAll child');
