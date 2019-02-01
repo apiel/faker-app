@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 
 // const count = 100;
-const count = 10;
+const count = 3;
 
 app.get('/', (req, res) => {
   faker.seed(1);

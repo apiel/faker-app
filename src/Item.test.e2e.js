@@ -1,5 +1,6 @@
 // import { loadUrl } from 'render-and-test';
 const rnt = require('render-and-test');
+const puppeteer = require('puppeteer');
 
 // import fetch from 'node-fetch';
 const fetch = require('node-fetch');
@@ -17,12 +18,24 @@ describe('Item test', () => {
             }));
             await rnt.loadUrls(dataUrls);
         });
-    }, ({ pathUrl, data }) => {
+    }, ({ baseUrl, pathUrl, data }) => {
+        let page;
+        let browser;
         beforeAll(async () => {
-            console.log('beforeAll child');
+            browser = await puppeteer.launch();
+            page = await browser.newPage();
+            // await page.goto('https://google.com');
+            await page.goto(`${baseUrl}${pathUrl}`)
         });
-        it('should fail', () => {
-            expect(1).toBe(2);
+        afterAll(async () => {
+            await browser.close();
+        })
+        it('should success', async () => {
+            // expect(1).toBe(2);
+            // await expect(page).toMatch(data.name);
+            const text = await page.evaluate(() => document.body.textContent);
+            // expect(text).toContain('google');
+            expect(text).toContain(data.name);
         });
     });
 });
