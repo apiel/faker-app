@@ -5,11 +5,14 @@ const faker = require('faker');
 const app = express();
 app.use(cors());
 
+// const count = 100;
+const count = 10;
+
 app.get('/', (req, res) => {
   faker.seed(1);
 
   const data = [];
-  for(let n = 0; n < 100; n++) {
+  for(let n = 0; n < count; n++) {
     data.push({
       name: faker.name.findName(),
       address: faker.address.streetAddress(),

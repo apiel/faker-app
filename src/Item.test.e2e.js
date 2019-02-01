@@ -8,13 +8,17 @@ jest.setTimeout(300000);
 
 describe('Item test', () => {
     beforeAll(async () => {
-        const response = await fetch('http://localhost:2000/');
-        const json = await response.json();
-        const dataUrls = json.map((data, index) => ({
-            pathUrl: `/item/${index}`,
-            data,
-        }));
-        await rnt.loadUrls(dataUrls);
+        if (!process.env.RNT_PATH_URL) {
+            const response = await fetch('http://localhost:2000/');
+            const json = await response.json();
+            const dataUrls = json.map((data, index) => ({
+                pathUrl: `/item/${index}`,
+                data,
+            }));
+            await rnt.loadUrls(dataUrls);
+        } else {
+            console.log('beforeAll child');
+        }
     });
     it('should do something in item', () => {
 
