@@ -20,9 +20,16 @@ describe('Item test', () => {
             console.log('beforeAll child');
         }
     });
-    it('should do something in item', () => {
-
+    afterAll(() => {
+        // console.log('jest', jest);
     });
+    if (!process.env.RNT_PATH_URL) {
+        it('should do something ', () => {});
+    } else {
+        it('should fail', () => {
+                expect(1).toBe(2);
+        });
+    }
 });
 
 // // import fetch from 'node-fetch';
